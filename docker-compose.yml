@@ -11,6 +11,7 @@ services:
       - ./src:/var/www/html
       - ~/.composer:/var/www/.composer
       - ~/.npm:/var/www/.npm
+      - ./config/hangers.conf:/etc/apache2/sites-enabled/hangers.conf
       # - ~/.nvm:/var/www/.nvm
     environment:
       XDEBUG_CONFIG: "remote_host=localhost"
