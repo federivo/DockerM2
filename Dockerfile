@@ -99,6 +99,10 @@ RUN wget https://files.magerun.net/n98-magerun2.phar \
 	&& chmod +x ./n98-magerun2.phar \
 	&& mv ./n98-magerun2.phar /usr/local/bin/
 
+# Install Magento Cloud CLI
+
+RUN	curl -sS https://accounts.magento.cloud/cli/installer | php
+
 # Configuring system
 
 ADD .docker/config/php.ini /usr/local/etc/php/php.ini

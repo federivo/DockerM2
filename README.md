@@ -30,7 +30,7 @@ Install [Docker](https://docs.docker.com/engine/installation/linux/docker-ce/ubu
 Execute in your terminal, change the *MYMAGENTO2* to use the name of your project:
 
 ```
-curl -s https://raw.githubusercontent.com/clean-docker/Magento2/master/init | bash -s MYMAGENTO2 clone
+curl -s https://raw.githubusercontent.com/ArturoI/DockerM2/master/init | bash -s MYMAGENTO2 clone <project_git_repo>
 ```
 
 If you want to install the Magento 2, use like that:
@@ -69,6 +69,7 @@ Enjoy your new panels!
 | `./grunt`  | Use Grunt specifically in your theme or completely, it'll do the deploy and the watcher.  | `./grunt luma` |
 | `./xdebug`  |  Enable / Disable the XDebug | |
 | `./composer`  |  Use Composer commands | `./composer update` |
+| `./magento-cloud` | Magento Cloud CLI | `./magento-cloud list` |
 
 ### Elasticsearch 
 
