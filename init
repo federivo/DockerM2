@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 if [ "$2" == "clone" ]; then
-  git clone https://github.com/clean-docker/Magento2.git $1 && cd $1;
+  git clone https://github.com/ArturoI/DockerM2.git $1 && cd $1;
 fi
 
 git config --global core.autocrlf false
@@ -16,19 +16,27 @@ if [ "$(uname)" == "Darwin" ]; then
     git checkout -f mac;
     sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
     && sed -i '' -e "s/<project_name>/$1/g" docker-compose-dev.yml \
-    && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml;
+    && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml \
+    && sed -i '' -e "s/<project_name>/$1/g" config/site.conf;
 elif [ "$(uname)" == "cygwin" ] || [ "$(uname)" == "msys" ] || [ "$(uname)" == "win32" ]; then
     git checkout -f windows;
     sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
     && sed -i '' -e "s/<project_name>/$1/g" docker-compose-dev.yml \
-    && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml;
+    && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml \
+    && sed -i '' -e "s/<project_name>/$1/g" config/site.conf;
 else
     git checkout -f master;
-    sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml;
+    sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
+    && sed -i '' -e "s/<project_name>/$1/g" config/site.conf;
 fi
 
-if [ ! -e src/index.php ]; then
-  echo "<?php phpinfo();" > src/index.php;
+if [ ! -z "$3" ]; then
+  rm -rf src;
+  if [ ! -z "$4" ]; then
+  	git clone $3 -b $4 src;
+  else
+    git clone $3 src;
+  fi
 fi
 
 if [ -d src/app/etc ]; then  
@@ -37,6 +45,6 @@ if [ -d src/app/etc ]; then
   fi
 fi
 
-chmod -R 777 src
+find src/ -type f -exec chmod 660 {} ";" && find src/ -type d -exec chmod 770 {}
 
 bash start
